@@ -26,7 +26,7 @@ def energy_image(im: npt.NDArray[np.uint8]) -> npt.NDArray[np.double]:
     Output: 
         The result of passing the image to the energy function e_1(im) = |d(im)/dx| + |d(im)/dy|
         The partial derivatives operators use the optimal 8 bit integer valued 3x3 filter 
-        stemming from Scharr's theory
+        stemming from Scharr's theory. A numpy array of data type double (float64)
 
     Parameters
     ----------
