@@ -39,7 +39,7 @@ def find_optimal_horizontal_seam(cum_energy_map:npt.NDArray[np.double]) -> npt.N
     Examples
     ----------
     >>> find_optimal_horizontal_seam_1(cum_energy_map)
-    >>>
+    >>> array([327., 327., 328., ..., 315., 314., 314.])
     """
     assert len(cum_energy_map.shape) == 2, 'Unexpected number of dimensions. Expecting a 2d numpy array.'
     assert cum_energy_map.dtype == np.double, 'Unexpedted dtype. The function expects a 2D energy map of data type double(float64).'
