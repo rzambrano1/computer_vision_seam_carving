@@ -54,7 +54,7 @@ def find_optimal_vertical_seam(cum_energy_map: npt.NDArray[np.double]) -> npt.ND
     
     # Checking if the value occurs in other places in the last row
     occurences_minVal = np.count_nonzero(cum_energy_map[row_size-1,:] == first_minVal)
-
+    
     # Checking if the minimumvalue is unique or not
     unique_minVal = not bool(occurences_minVal-1)
     
@@ -77,13 +77,13 @@ def find_optimal_vertical_seam(cum_energy_map: npt.NDArray[np.double]) -> npt.ND
             if upleft < 0:
                 upleft = 0
                 offset = 0 # On the upper edge the offset need to change to 0
-            if upright > (row_size-1):
-                upright = row_size-1
+            if upright > (cols_size-1):
+                upright = cols_size-1
 
             if (upleft == upright) and (upleft == 0):
                 upright = upright + 2
                 offset = 0 # On the upper edge the offset need to change to 0
-            elif (upleft == upright) and (upright == row_size-1):
+            elif (upleft == upright) and (upright == cols_size-1):
                 upleft = upleft - 2
             ## --------------------------------------------- ##
             
@@ -114,16 +114,16 @@ def find_optimal_vertical_seam(cum_energy_map: npt.NDArray[np.double]) -> npt.ND
                 if upleft < 0:
                     upleft = 0
                     offset = 0 # On the upper edge the offset need to change to 0
-                if upright > (row_size-1):
-                    upright = row_size-1
+                if upright > (cols_size-1):
+                    upright = cols_size-1
 
                 if (upleft == upright) and (upleft == 0):
                     upright = upright + 2
                     offset = 0 # On the upper edge the offset need to change to 0
-                elif (upleft == upright) and (upright == row_size-1):
+                elif (upleft == upright) and (upright == cols_size-1):
                     upleft = upleft - 2
                 ## --------------------------------------------- ##
-            
+
                 # The column index has to be connected to the pixel below, thus it moves either right, none, or left 
                 # of the index below. argmin will output either 0, 1, 2 for left,none, or right. Substracting 1 shifts
                 # this output to the left, so if there is no change then the index below will be the same M[i+1,j] + 0

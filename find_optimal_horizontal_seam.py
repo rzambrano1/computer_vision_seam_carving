@@ -59,7 +59,7 @@ def find_optimal_horizontal_seam(cum_energy_map:npt.NDArray[np.double]) -> npt.N
     unique_minVal = not bool(occurences_minVal-1)
     
     if unique_minVal:
-        print('unique branch')
+
         # Create a vector to store the row indexes of the seam
         horizontal_seam = np.zeros((cols_size,),dtype=np.double)
         
@@ -77,20 +77,20 @@ def find_optimal_horizontal_seam(cum_energy_map:npt.NDArray[np.double]) -> npt.N
             if leftup < 0:
                 leftup = 0
                 offset = 0 # On the upper edge the offset need to change to 0
-            if leftdown > (cols_size-1):
-                leftdown = cols_size-1
+            if leftdown > (row_size-1):
+                leftdown = row_size-1
 
             if (leftup == leftdown) and (leftup == 0):
                 leftdown = leftdown + 2
                 offset = 0 # On the upper edge the offset need to change to 0
-            elif (leftup == leftdown) and (leftdown == cols_size-1):
+            elif (leftup == leftdown) and (leftdown == row_size-1):
                 leftup = leftup - 2
             ## --------------------------------------------- ##
             
             horizontal_seam[j] = horizontal_seam[j+1] + np.argmin(cum_energy_map[leftup:leftdown,j]) + offset
     
     else:
-        print('several mins branch')
+
         # Create a matrix to store the potential vectors in the rows. Each candidate vector row
         # stores the indexes of the candidate seam
         horizontal_seam_matrix = np.zeros((occurences_minVal,cols_size),dtype=np.double)
@@ -114,13 +114,13 @@ def find_optimal_horizontal_seam(cum_energy_map:npt.NDArray[np.double]) -> npt.N
                 if leftup < 0:
                     leftup = 0
                     offset = 0 # On the upper edge the offset need to change to 0
-                if leftdown > (cols_size-1):
-                    leftdown = cols_size-1
+                if leftdown > (row_size-1):
+                    leftdown = row_size-1
                     
                 if (leftup == leftdown) and (leftup == 0):
                     leftdown = leftdown + 2
                     offset = 0 # On the upper edge the offset need to change to 0
-                elif (leftup == leftdown) and (leftdown == cols_size-1):
+                elif (leftup == leftdown) and (leftdown == row_size-1):
                     leftup = leftup - 2
                 ## --------------------------------------------- ##
 
