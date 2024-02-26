@@ -25,4 +25,76 @@ import find_optimal_vertical_seam
 import find_optimal_horizontal_seam
 import display_seam
 
+def reduce_height(
+    img: npt.NDArray[np.uint8], 
+    energy_image: npt.NDArray[np.double], 
+    ) -> Tuple[npt.NDArray[np.uint8],npt.NDArray[np.double]]:
+    """
+    Reduces the height on an image using seam-carving for content aware image resizing
+    
+    Input:
+        An image with dimmensions [M,N,3] of data type uint8
+        A single-channel image with the result of the energy function, expected format is a numpy array with
+        dimmensions [M,N] of data type double (float64)
+    Output:
+        An image with dimmensions [M-1,N,3] of data type uint8
+        A single-channel image with the result of the energy function, expected format is a numpy array with
+        dimmensions [M-1,N] of data type double (float64)
+    
+    Parameters
+    ----------
+    img : np.ndarray [shape=(M,N,3), dtype=np.uint8]
+    seam_vector : np.ndarray [shape=(M,N), dtype=np.double]
 
+    Returns
+    ----------
+    Tuple[npt.NDArray[np.uint8],npt.NDArray[np.double]]
+
+    Examples
+    ----------
+    >>> img_input.shape
+    >>> (M,N,3)
+    >>> img_output, energy_image_output = reduce_height(img_input, energy_image_input)
+    >>> img_output.shape
+    >>> (M-1,N,3)
+    """
+    assert img.shape[2] == 3, 'Unexpected number of channels. Pass an image with 3 channels.'
+    assert img.dtype == np.uint8, 'Unexpedted dtype. The function expects an RBG image of data type uint8.'
+    
+    assert len(energy_image.shape) == 2, 'Unexpected number of dimensions. Expecting a 2d numpy array.'
+    assert energy_image.dtype == np.double, 'Unexpedted dtype. The function expects a 2D energy map of data type double(float64).'
+    
+    assert (img.shape[0] == energy_image.shape[0]) and (img.shape[1] == energy_image.shape[1]), 'Image and Energy Image sizes must match'
+    
+    cum_energy_map_col_traverse = cumulative_minimum_energy_map(energy_image,1)
+    horizontal_seam_vector = find_optimal_horizontal_seam(cum_energy_map_col_traverse)
+    
+    num_cols = img.shape[1] 
+    num_rows = img.shape[0]
+    
+    # Creating a 1D mask with same dimentions as image filled with True
+    mask = np.ones((num_rows, num_cols), dtype=bool)
+    
+    # Changes values to False in each column combined with the row index stored in the horizontal_seam vector
+    for j in range(len(horizontal_seam_vector)):
+        mask[int(horizontal_seam_vector[j]),j] = False
+
+    # Stacks mask in 3D
+    mask_3D = np.stack([mask] * 3, axis=2)
+
+    img_out = np.zeros((num_rows-1,num_cols))
+    img_out = np.stack([img_out] * 3, axis=2)
+    img_out = img_out.astype(np.uint8)
+    
+    energy_out = np.zeros((num_rows-1,num_cols))
+
+    # Filling the img_out with masked columns (reduced by one pixel)
+    for k in range(3):
+        for j in range(num_cols):
+            img_out[:,j,k] = img[:,j,k][mask_3D[:,j,k]]
+    
+    # Filling the energy_out with masked columns (reduced by one pixel)
+    for j in range(num_cols):
+        energy_out[:,j] = energy_image[:,j][mask[:,j]]
+    
+    return img_out,energy_out
