@@ -39,7 +39,7 @@ def find_optimal_vertical_seam(cum_energy_map: npt.NDArray[np.double]) -> npt.ND
     Examples
     ----------
     >>> find_optimal_vertical_seam_1(cum_energy_map)
-    >>> array([261., 261., 261., ..., 192., 191., 191.])
+    >>>
     """
     assert len(cum_energy_map.shape) == 2, 'Unexpected number of dimensions. Expecting a 2d numpy array.'
     assert cum_energy_map.dtype == np.double, 'Unexpedted dtype. The function expects a 2D energy map of data type double(float64).'
@@ -71,7 +71,23 @@ def find_optimal_vertical_seam(cum_energy_map: npt.NDArray[np.double]) -> npt.ND
         for i in range(row_size-2, -1, -1):
             upleft = int(vertical_seam[i+1]-1)
             upright = int(vertical_seam[i+1]+2)
-            vertical_seam[i] = vertical_seam[i+1] + np.argmin(cum_energy_map[i,upleft:upright]) - 1
+            offset = -1
+            
+            ## Handling slices near the edges of the image ##
+            if upleft < 0:
+                upleft = 0
+                offset = 0 # On the upper edge the offset need to change to 0
+            if upright > (row_size-1):
+                upright = row_size-1
+
+            if (upleft == upright) and (upleft == 0):
+                upright = upright + 2
+                offset = 0 # On the upper edge the offset need to change to 0
+            elif (upleft == upright) and (upright == row_size-1):
+                upleft = upleft - 2
+            ## --------------------------------------------- ##
+            
+            vertical_seam[i] = vertical_seam[i+1] + np.argmin(cum_energy_map[i,upleft:upright]) + offset
     
     else:
         
@@ -92,10 +108,26 @@ def find_optimal_vertical_seam(cum_energy_map: npt.NDArray[np.double]) -> npt.ND
             for j in range(vertical_seam_matrix.shape[1]):
                 upleft = int(vertical_seam_matrix[i+1,j]-1)
                 upright = int(vertical_seam_matrix[i+1,j]+2)
+                offset = -1
+                
+                ## Handling slices near the edges of the image ##
+                if upleft < 0:
+                    upleft = 0
+                    offset = 0 # On the upper edge the offset need to change to 0
+                if upright > (row_size-1):
+                    upright = row_size-1
+
+                if (upleft == upright) and (upleft == 0):
+                    upright = upright + 2
+                    offset = 0 # On the upper edge the offset need to change to 0
+                elif (upleft == upright) and (upright == row_size-1):
+                    upleft = upleft - 2
+                ## --------------------------------------------- ##
+            
                 # The column index has to be connected to the pixel below, thus it moves either right, none, or left 
                 # of the index below. argmin will output either 0, 1, 2 for left,none, or right. Substracting 1 shifts
                 # this output to the left, so if there is no change then the index below will be the same M[i+1,j] + 0
-                vertical_seam_matrix[i,j] = vertical_seam_matrix[i+1,j] + np.argmin(cum_energy_map[i,upleft:upright]) - 1
+                vertical_seam_matrix[i,j] = vertical_seam_matrix[i+1,j] + np.argmin(cum_energy_map[i,upleft:upright]) + offset
     
         # Finding the column with the minimum seam cost
         energy_values = np.zeros_like(vertical_seam_matrix)
@@ -104,9 +136,9 @@ def find_optimal_vertical_seam(cum_energy_map: npt.NDArray[np.double]) -> npt.ND
             for j in range(energy_values.shape[1]):
                 energy_values[i,j] = cum_energy_map[i,int(vertical_seam_matrix[i,j])]
         
-        minimum_energy_conlum = np.argmin(np.sum(energy_values,axis=0))
+        minimum_energy_column = np.argmin(np.sum(energy_values,axis=0))
         
         # Assigning the vertical seam vector
-        vertical_seam = vertical_seam_matrix[:,minimum_energy_conlum]
+        vertical_seam = vertical_seam_matrix[:,minimum_energy_column]
         
     return vertical_seam
