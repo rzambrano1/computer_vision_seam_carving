@@ -78,7 +78,7 @@ if __name__ == "__main__":
 
     parser.add_argument('-in','--input_file_name', type=str, default=False, action='store', required=True, help="String with name of JPG file in folder")
     parser.add_argument('-out','--output_file_name', type=str, default=False, action='store', required=True, help="String with name of the output name of the PNG file")
-    parser.add_argument('-pix','--num_pixels_remove', type=int, default=100, action='store', required=True, help="Number of most-informative features to show")
+    parser.add_argument('-pix','--num_pixels_remove', type=int, default=100, action='store', required=True, help="Number of pixes to remove from the image")
     
     args = parser.parse_args()
     main(str(args.input_file_name), str(args.output_file_name), int(args.num_pixels_remove))

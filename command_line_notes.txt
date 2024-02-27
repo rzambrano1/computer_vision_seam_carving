@@ -1,3 +1,15 @@
+=====================
+Programming Problem 1
+=====================
+
 python SeamCarvingReduceWidth.py -in inputSeamCarvingPrague -out outputReduceWidthPrague -pix 100
 
 python SeamCarvingReduceWidth.py -in inputSeamCarvingMall -out outputReduceWidthMall -pix 100
+
+=====================
+Programming Problem 2
+=====================
+
+python SeamCarvingReduceHeight.py -in inputSeamCarvingPrague -out outputReduceHeightPrague -pix 100
+
+python SeamCarvingReduceHeight.py -in inputSeamCarvingMall -out outputReduceHeightMall -pix 100
