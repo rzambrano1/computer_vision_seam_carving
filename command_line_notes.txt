@@ -1,0 +1,3 @@
+python SeamCarvingReduceWidth.py -in inputSeamCarvingPrague -out outputReduceWidthPrague -pix 100
+
+python SeamCarvingReduceWidth.py -in inputSeamCarvingMall -out outputReduceWidthMall -pix 100

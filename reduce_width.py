@@ -19,11 +19,11 @@ from skimage import io
 from skimage.color import rgb2gray
 
 # Import Functions
-import energy_image
-import cumulative_minimum_energy_map
-import find_optimal_vertical_seam
-import find_optimal_horizontal_seam
-import display_seam
+from energy_image import energy_image
+from cumulative_minimum_energy_map import cumulative_minimum_energy_map
+from find_optimal_vertical_seam import find_optimal_vertical_seam
+from find_optimal_horizontal_seam import find_optimal_horizontal_seam
+from display_seam import display_seam
 
 def reduce_width(
     img: npt.NDArray[np.uint8], 
