@@ -13,3 +13,36 @@ Programming Problem 2
 python SeamCarvingReduceHeight.py -in inputSeamCarvingPrague -out outputReduceHeightPrague -pix 100
 
 python SeamCarvingReduceHeight.py -in inputSeamCarvingMall -out outputReduceHeightMall -pix 100
+
+=====================
+Programming Problem 6
+=====================
+
+python SeamCarvingReduceHeight.py -in input_img_totoro -out outputReduceHeightTotoro -pix 400
+
+python SeamCarvingReduceHeight.py -in input_img_caracas -out outputReduceHeightCaracas -pix 400
+
+=====================
+
+python SeamCarvingReduceWidth.py -in input_img_totoro -out outputReduceWidthTotoro -pix 400
+
+python SeamCarvingReduceWidth.py -in input_img_caracas -out outputReduceWidthCaracas -pix 400
+
+=====================
+
+python SeamCarvingReduceWidth.py -in input_img_giza -out outputReduceWidthGiza -pix 400
+
+python SeamCarvingReduceWidth.py -in input_img_giza -out outputReduceWidthGiza -pix 400
+
+=====================
+
+
+python SeamCarvingReduceWidth.py -in input_img_smiley -out outputReduceWidthSmiley -pix 200
+
+python SeamCarvingReduceWidth.py -in input_img_smiley -out outputReduceWidthSimiley -pix 200
+
+=====================
+
+python SeamCarvingReduceWidth.py -in input_img_rayo -out outputReduceWidthRayo -pix 150
+
+python SeamCarvingReduceWidth.py -in input_img_rayo -out outputReduceWidthRayo -pix 150

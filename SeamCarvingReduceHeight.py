@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import argparse
 import os
 import sys
+from tqdm import tqdm
 
 # Type Hint Libraries
 from typing import Optional, Tuple, Union, TypeVar, List
@@ -60,7 +61,7 @@ def main(input_file_name,output_file_name,num_pixels_remove):
 
     energy_map = energy_image(img)
 
-    for _ in range(num_pixels_remove):
+    for _ in tqdm(range(num_pixels_remove)):
         img,energy_map = reduce_height(img,energy_map)
 
     io.imsave(PATH_SAVE,img)
