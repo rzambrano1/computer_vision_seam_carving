@@ -17,7 +17,7 @@ ECHO Processing image 1 out of 5
 
 python SeamCarvingReduceWidth.py -in input_img_rayo -out outputReduceWidthRayo -pix 150
 
-python SeamCarvingReduceWidth.py -in input_img_rayo -out outputReduceWidthRayo -pix 150
+python SeamCarvingReduceWidth.py -in input_img_rayo -out outputReduceHeightRayo -pix 150
 
 ::=====================
 
@@ -25,7 +25,7 @@ ECHO Processing image 2 out of 5
 
 python SeamCarvingReduceWidth.py -in input_img_smiley -out outputReduceWidthSmiley -pix 200
 
-python SeamCarvingReduceWidth.py -in input_img_smiley -out outputReduceWidthSimiley -pix 200
+python SeamCarvingReduceWidth.py -in input_img_smiley -out outputReduceHeightSimiley -pix 200
 
 ::=====================
 
@@ -33,7 +33,7 @@ ECHO Processing image 3 out of 5
 
 python SeamCarvingReduceWidth.py -in input_img_giza -out outputReduceWidthGiza -pix 400
 
-python SeamCarvingReduceWidth.py -in input_img_giza -out outputReduceWidthGiza -pix 400
+python SeamCarvingReduceWidth.py -in input_img_giza -out outputReduceHeightGiza -pix 400
 
 ::=====================
 
@@ -43,13 +43,13 @@ ECHO Processing image 4 out of 5
 
 python SeamCarvingReduceWidth.py -in input_img_totoro -out outputReduceWidthTotoro -pix 400
 
-python SeamCarvingReduceWidth.py -in input_img_caracas -out outputReduceWidthCaracas -pix 400
+python SeamCarvingReduceWidth.py -in input_img_caracas -out outputReduceHeightCaracas -pix 400
 
 ::=====================
 
 ECHO Processing image 5 out of 5
 
-python SeamCarvingReduceHeight.py -in input_img_totoro -out outputReduceHeightTotoro -pix 400
+python SeamCarvingReduceHeight.py -in input_img_totoro -out outputReduceWidthTotoro -pix 400
 
 python SeamCarvingReduceHeight.py -in input_img_caracas -out outputReduceHeightCaracas -pix 400
 
